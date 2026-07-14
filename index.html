@@ -1,293 +1,434 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My CV</title>
-</head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Patricia D. Sullera · Project Manager</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#ffffff;
+    --bg-alt:#f7f8fa;
+    --ink:#12151a;
+    --ink-soft:#4b5261;
+    --muted:#78808f;
+    --accent:#2f6fed;
+    --accent-soft:#eaf1ff;
+    --line:#e7e9ee;
+    --radius:12px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Inter',sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.6;
+    font-size:16px;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--accent);text-decoration:none;}
+  .container{max-width:960px;margin:0 auto;padding:0 32px;}
+  ::selection{background:var(--accent-soft);}
 
+  /* NAV */
+  nav{
+    position:sticky;top:0;z-index:30;
+    background:rgba(255,255,255,0.9);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  nav .container{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:16px 32px;
+  }
+  nav .brand{font-weight:800;font-size:16px;letter-spacing:-.2px;}
+  nav .brand span{color:var(--accent);}
+  nav .links{display:flex;gap:8px;font-size:14px;}
+  nav .links a{
+    color:var(--ink-soft);font-weight:500;padding:8px 14px;border-radius:8px;
+    transition:background .15s ease,color .15s ease;
+  }
+  nav .links a:hover{background:var(--bg-alt);color:var(--ink);}
+  nav .links a.active{color:var(--accent);background:var(--accent-soft);font-weight:600;}
+  nav .cta{
+    font-size:14px;font-weight:600;color:#fff;background:var(--ink);
+    padding:9px 18px;border-radius:8px;white-space:nowrap;
+  }
+  nav .cta:hover{background:var(--accent);}
+  .nav-toggle{display:none;}
+
+  /* HERO */
+  header.hero{
+    padding:96px 0 72px;
+    border-bottom:1px solid var(--line);
+  }
+  .kicker{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:13px;font-weight:600;color:var(--accent);
+    background:var(--accent-soft);padding:6px 14px;border-radius:20px;
+    margin-bottom:24px;
+  }
+  header.hero h1{
+    font-size:48px;font-weight:800;letter-spacing:-1.5px;line-height:1.1;margin-bottom:16px;
+  }
+  header.hero .role{
+    font-size:20px;color:var(--ink-soft);margin-bottom:32px;font-weight:500;
+  }
+  .contact-row{
+    display:flex;flex-wrap:wrap;gap:14px;
+  }
+  .pill{
+    display:flex;align-items:center;gap:8px;
+    font-size:13.5px;color:var(--ink-soft);font-weight:500;
+    background:var(--bg-alt);border:1px solid var(--line);
+    padding:9px 14px;border-radius:20px;
+  }
+  .pill a{color:var(--ink-soft);font-weight:500;}
+  .pill a:hover{color:var(--accent);}
+
+  /* SECTIONS */
+  section{padding:64px 0;border-bottom:1px solid var(--line);}
+  section:last-of-type{border-bottom:none;}
+  .section-label{
+    font-size:13px;text-transform:uppercase;letter-spacing:1.5px;
+    color:var(--accent);font-weight:700;margin-bottom:10px;
+  }
+  section h2{
+    font-size:28px;font-weight:800;letter-spacing:-0.5px;margin-bottom:36px;
+  }
+  .lead{font-size:17px;color:var(--ink-soft);max-width:700px;}
+
+  /* EXPERIENCE */
+  .job{
+    display:grid;grid-template-columns:170px 1fr;gap:24px;
+    padding:28px 0;border-top:1px solid var(--line);
+  }
+  .job:first-of-type{border-top:none;padding-top:0;}
+  .job-meta{
+    font-size:13px;color:var(--muted);font-weight:600;
+    text-transform:uppercase;letter-spacing:.6px;padding-top:2px;
+  }
+  .job-title{font-size:18px;font-weight:700;margin-bottom:3px;}
+  .job-company{font-size:14px;color:var(--accent);font-weight:600;margin-bottom:14px;}
+  .job ul{padding-left:18px;}
+  .job li{margin-bottom:8px;font-size:15px;color:var(--ink-soft);}
+  .job li::marker{color:var(--accent);}
+
+  /* SKILLS */
+  .skills-grid{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;
+  }
+  .skill-card{
+    background:var(--bg-alt);border:1px solid var(--line);border-radius:var(--radius);
+    padding:22px;
+  }
+  .skill-card h3{font-size:15px;font-weight:700;margin-bottom:12px;}
+  .tags{display:flex;flex-wrap:wrap;gap:8px;}
+  .tag{
+    font-size:12.5px;padding:5px 11px;border-radius:6px;
+    background:#fff;border:1px solid var(--line);color:var(--ink-soft);font-weight:500;
+  }
+
+  /* CERT */
+  .cert{
+    display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;
+    background:var(--accent-soft);border-radius:var(--radius);padding:28px 30px;
+  }
+  .cert h3{font-size:19px;font-weight:700;margin-bottom:6px;}
+  .cert .meta{font-size:12.5px;color:var(--accent);text-transform:uppercase;letter-spacing:.8px;font-weight:700;margin-bottom:10px;}
+  .cert p{font-size:14.5px;color:var(--ink-soft);max-width:480px;}
+  .badge{
+    font-size:12.5px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;
+    background:var(--accent);color:#fff;padding:9px 16px;border-radius:20px;white-space:nowrap;
+  }
+  .cert-cta{
+    display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;
+    background:var(--accent-soft);border-radius:var(--radius);padding:28px 30px;
+  }
+  .cert-cta p{font-size:14.5px;color:var(--ink-soft);max-width:480px;}
+  .cert-cta .btn{
+    font-size:14px;font-weight:700;color:#fff;background:var(--accent);
+    padding:12px 22px;border-radius:8px;white-space:nowrap;
+    display:inline-flex;align-items:center;gap:8px;
+    transition:background .15s ease,transform .15s ease;
+  }
+  .cert-cta .btn:hover{background:var(--ink);transform:translateY(-1px);}
+
+  /* EDUCATION */
+  .edu{
+    background:var(--bg-alt);border:1px solid var(--line);border-radius:var(--radius);padding:26px 30px;
+  }
+  .edu h3{font-size:17px;font-weight:700;margin-bottom:4px;}
+  .edu .meta{font-size:12.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;font-weight:600;margin-bottom:14px;}
+  .edu p{font-size:14.5px;color:var(--ink-soft);padding-left:14px;border-left:3px solid var(--accent);}
+
+  /* FOOTER */
+  footer{padding:56px 0;text-align:center;background:var(--bg-alt);}
+  footer h2{font-size:24px;font-weight:800;margin-bottom:14px;}
+  footer .row{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:8px;}
+  footer .small{font-size:13px;color:var(--muted);}
+
+  /* BACK TO TOP */
+  #top-btn{
+    position:fixed;bottom:24px;right:24px;
+    width:44px;height:44px;border-radius:50%;
+    background:var(--ink);color:#fff;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 6px 16px rgba(0,0,0,0.2);
+    opacity:0;pointer-events:none;transition:opacity .2s ease,transform .2s ease;
+    z-index:40;font-size:18px;
+  }
+  #top-btn.show{opacity:1;pointer-events:auto;}
+  #top-btn:hover{background:var(--accent);transform:translateY(-2px);}
+
+  @media (max-width:720px){
+    nav .links{display:none;}
+    header.hero h1{font-size:34px;}
+    header.hero{padding:64px 0 48px;}
+    section{padding:48px 0;}
+    .job{grid-template-columns:1fr;gap:6px;}
+    .job-meta{padding-top:0;}
+  }
+</style>
+</head>
 <body>
 
-    <!-- Personal information -->
-    <div id="personal-info-section-container">
-        <h1>Patricia Sullera</h1>
-        <p>
-            <!-- email address -->
-            <span>
-                <a href="mailto:sullerapatricia@gmail.com">sullerapatricia@gmail.com</a>
-            </span> |
-
-            <!-- phone number -->
-            <span>
-                <a href="tel:+639354146734">+63 935 414 6734</a>
-            </span>
-
-            <!-- address -->
-            <span>
-                <address style="margin-top: -15px;"> Meycauayan City, Bulacan, Philippines</address>
-            </span>
-
-
-        </p>
-        <!-- LinkedIn -->
-        <span>
-            <a href="https://www.linkedin.com/in/patricia-sullera-86743314a/" target="_blank"><img
-                    src="./assets/images/linkedin-icon.png" height="30" /></a>
-        </span>
-
-        <!-- GitHub -->
-        <span style="padding-left: 5px;">
-            <a href="https://github.com/ptrcsllr" target="_blank"><img src="./assets/images/github-icon.svg"
-                    height="30" /></a>
-        </span>
-
-        <!-- Uncomment this when the portfolio contact page is already functional -->
-        <!-- portfolio -->
-        <!-- <p>
-            <a href="https://ptrcsllr.github.io/html-portfolio/" target="_blank">View Portfolio</a> | -->
-
-        <!-- Contact me link -->
-        <!-- <span>
-                <a href="https://ptrcsllr.github.io/html-portfolio/contact.html" target="_blank">Contact Me</a>
-            </span>
-        </p> -->
-
-    </div> <br />
-    <hr />
-
-    <!-- Summary or objective statement -->
-    <div id="summary-section-container">
-        <h1>Summary</h1>
-        <p>Pat is a highly motivated Fullstack Developer/Project Manager seeking a company where she can add value and
-            be an asset. She
-            is a result-driven individual in search of challenges and knowledge in a fast-paced organization to
-            contribute her skills and passion for striving excellency.</p>
+<nav>
+  <div class="container">
+    <div class="brand">Patricia <span>Sullera</span></div>
+    <div class="links" id="nav-links">
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#skills">Skills</a>
+      <a href="#education">Education</a>
     </div>
-    <hr />
+    <a class="cta" href="#contact">Contact</a>
+  </div>
+</nav>
 
-    <!-- Work experience -->
-    <div id="work-experience-section-container">
-
-        <h1>Work Experience</h1>
-
-        <div id="muvr-job-section-container">
-            <h3><b>MUVR | U.S.A.</b></h3>
-            <p style="margin-top: -15px;"><i><u>Technical Project Manager (October 2024 - September 2025)</u></i></p>
-
-            <ul>
-                <li>
-                    Led cross-functional teams to deliver web and mobile applications, ensuring timely project
-                    completion
-                    and adherence to budget constraints.
-                </li>
-                <li>
-                    Led end-to-end feature planning and execution, ensuring on-time releases by creating detailed
-                    timelines,
-                    Jira tickets, and managing team workflows.
-                </li>
-                <li>
-                    Collaborated with engineers, QA, and stakeholders to facilitate the full development lifecycle, from
-                    ideation through testing and deployment.
-                </li>
-                <li>
-                    Provided technical guidance and conducted code reviews to maintain code quality, encourage best
-                    practices, and support team growth.
-                </li>
-                <li>
-                    Resolved cross-functional challenges, removed blockers, and introduced productivity tools to enhance
-                    team efficiency and delivery speed.
-                </li>
-                <li>
-                    Actively contributed to QA testing and agile ceremonies, fostering a collaborative environment
-                    focused
-                    on continuous improvement and excellence.
-                </li>
-            </ul>
-        </div>
-
-        <div id="crowdcrux-job-section-container">
-            <h3><b>CROWDCRUX MARKETING AGENCY | U.S.A.</b></h3>
-            <p style="margin-top: -15px;"><i><u>Project Manager | (June 2023 - June 2025)</u></i></p>
-            <ul>
-                <li>
-                    Served as primary liaison between clients and internal teams, ensuring clear communication,
-                    alignment on goals, and satisfaction throughout the project lifecycle.
-                </li>
-                <li>
-                    Led cross-functional teams for landing page and crowdfunding campaigns, driving timely, high-quality
-                    deliverables tailored to client objectives.
-                </li>
-                <li>
-                    Delegated tasks effectively across designers, developers, and content creators, maintaining
-                    accountability and balanced workloads.
-                </li>
-                <li>
-                    Developed and managed project timelines based on client launch targets, ensuring on-schedule
-                    execution and smooth handoffs.
-                </li>
-                <li>
-                    Monitored key performance indicators (KPIs) to evaluate campaign success, optimize strategy, and
-                    report outcomes to stakeholders.
-                </li>
-            </ul>
-        </div>
-
-        <div id="accenture-job-section-container">
-            <h3><b>ACCENTURE INC. | PHILIPPINES</b></h3>
-            <p style="margin-top: -15px;">
-                <i><u>Technology Research and Development Analyst (December 2023 - December 2024)</u></i>
-            </p>
-            <ul>
-                <li>
-                    Successfully integrated major features into our application by leveraging emerging technologies,
-                    thereby enhancing the overall value of the project.
-                </li>
-                <li>
-                    Served as a Scrum Master facilitating all discussions, enhancing team collaboration and cooperation,
-                    which led to increased efficiency and productivity.
-                </li>
-                <li>
-                    Collaborate with cross-functional teams to develop and prototype new technologies and solutions.
-                </li>
-                <li>
-                    Develop and maintain comprehensive documentation as user and technical guide for all research and
-                    development activities.
-                </li>
-            </ul>
-
-            <p><i><u>Technology R&D Associate ( October 2022 - December 2023 )</u></i></p>
-            <ul>
-                <li>
-                    Collaborating with stakeholders, building and fixing errors/issues to deliver application
-                    requirements in an Agile environment.
-                </li>
-                <li>
-                    FullStack Web Development using <b>HTML, CSS, JavaScript, React.js, Node.js, Angular, MySQL,
-                        MongoDB, AWS, Git and MySQL.</b>
-                </li>
-                <li>
-                    Responsible for domain migration, asset revamping and maintenance.
-                </li>
-                <li>
-                    Self-paced learning of new emerging technologies and creating assets as innovation.
-                </li>
-                <li>
-                    Familiarity with Blockchain Technologies, Figma, Microsoft Azure, AWS Console, MIRO, JIRA, Unity,
-                    Visual Studio Code, MySQL Workbench and Adobe Creative Cloud.
-                </li>
-            </ul>
-        </div>
-
-        <div id="mbp-star-job-section-container">
-            <h3><b>MBP STAR CORPORATION | PHILIPPINES</b></h3>
-            <p style="margin-top: -15px;">
-                <i><u>
-                        Document Controller (March 2021 - September 2021)
-                    </u></i>
-            </p>
-            <ul>
-                <li>
-                    Proficiency in MS Excel for managing and preparing documents in relation to ISO efficiently,
-                    accurately, and punctually.
-                </li>
-                <li>
-                    Review details and maintain correctness of records, files and issue copies to different departments.
-                </li>
-                <li>
-                    Ensures integrity and confidentiality of documents.
-                </li>
-            </ul>
-        </div>
-
+<header class="hero" id="top">
+  <div class="container">
+    <div class="kicker">● Available for new opportunities</div>
+    <h1>Patricia D. Sullera</h1>
+    <div class="role">Project Manager · Full-Stack &amp; AI Tool Integration</div>
+    <div class="contact-row">
+      <span class="pill">📍 Meycauayan, Bulacan, Philippines</span>
+      <span class="pill">📞 +63 935 414 6734</span>
+      <span class="pill">✉️ <a href="mailto:sullerapatricia@gmail.com">sullerapatricia@gmail.com</a></span>
     </div>
-    <hr />
+  </div>
+</header>
 
-    <!-- Skills -->
-    <div id="skills-section-container">
-        <h1>Skills</h1>
+<section id="about">
+  <div class="container">
+    <div class="section-label">About</div>
+    <h2>A results-driven project leader</h2>
+    <p class="lead">Patricia turns messy handoffs into clean processes and ambitious timelines into shipped products. Over the past several years she's led cross-functional teams through full development cycles, brought AI tools into daily workflows to cut busywork, and kept clients, engineers, and stakeholders aligned when it mattered most. She combines a full-stack development background with sharp agile execution, and she's looking for her next fast-paced team to build with.</p>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="container">
+    <div class="section-label">Career</div>
+    <h2>Work Experience</h2>
+
+    <div class="job">
+      <div class="job-meta">Nov 2025 – Present</div>
+      <div>
+        <div class="job-title">Freelance Project Manager</div>
+        <div class="job-company">Chief AI Officer · Austin, Texas, U.S.A.</div>
         <ul>
-            <li>Strong communication skills in verbal and written English</li>
-            <li>Proficiency with Microsoft Office and Google Suite
-                <fieldset>
-                    <legend>Microsoft Office Suite</legend>
-                    <label for="microsoft-word">Microsoft Word</label> <span>⭐⭐⭐⭐⭐</span><br />
-                    <label for="microsoft-excel">Microsoft Excel</label> <span>⭐⭐⭐⭐⭐</span><br />
-                    <label for="microsoft-powerpoint">Microsoft PowerPoint</label> <span>⭐⭐⭐⭐⭐</span><br />
-                    <label for="microsoft-outlook">Microsoft Outlook</label> <span>⭐⭐⭐</span><br />
-                    <label for="microsoft-teams">Microsoft Teams</label> <span>⭐⭐⭐</span><br />
-                    <label for="microsoft-onenote">Microsoft OneNote</label> <span>⭐⭐⭐⭐</span><br />
-                    <label for="microsoft-sharepoint">Microsoft Sharepoint</label> <span>⭐⭐⭐</span><br />
-                </fieldset> <br />
-                <fieldset>
-                    <legend>Google Suite</legend>
-                    <label for="google-docs">Google Docs</label> <span>⭐⭐⭐⭐⭐</span><br />
-                    <label for="google-sheets">Google Sheets</label> <span>⭐⭐⭐⭐⭐</span><br />
-                    <label for="google-slides">Google Slides</label> <span>⭐⭐⭐⭐⭐</span><br />
-                    <label for="google-drive">Google Drive</label> <span>⭐⭐⭐⭐⭐</span><br />
-                    <label for="google-calendar">Google Calendar</label> <span>⭐⭐⭐⭐</span><br />
-                    <label for="google-meet">Google Meet</label> <span>⭐⭐⭐⭐⭐</span><br />
-                </fieldset> <br />
-            </li>
-            <li>Working knowledge in Mind AR, MySQL Stored Procedures, Figma and Unity.</li>
-            <fieldset>
-                <label for="mind-ar">Mind AR</label> <span>⭐⭐⭐</span><br />
-                <label for="mysql">MySQL Stored Procedures</label> <span>⭐⭐⭐⭐</span><br />
-                <label for="figma">Figma</label> <span>⭐⭐⭐⭐</span><br />
-                <label for="unity">Unity</label> <span>⭐⭐</span><br />
-            </fieldset> <br />
-            <li>Efficient skills in graphic designing, 3D modeling, photo and video editing using Adobe Photoshop,
-                Blender, Pixlr, Canva and Powtoon. </li>
-            <fieldset>
-                <label for="adobe-photoshop">Adobe Photoshop</label> <span>⭐⭐⭐⭐</span><br />
-                <label for="blender">Blender</label> <span>⭐⭐</span><br />
-                <label for="pixlr">Pixlr</label> <span>⭐⭐⭐⭐⭐</span><br />
-                <label for="canva">Canva</label> <span>⭐⭐⭐⭐⭐</span><br />
-                <label for="powtoon">Powtoon</label> <span>⭐⭐⭐</span><br />
-            </fieldset> <br />
-            <li>Project Management and organization skill using tools such as Jira, Azure, Basecamp, etc.</li>
-            <fieldset>
-                <legend>Project Management Tools</legend>
-                <label for="jira">Jira</label> <span>⭐⭐⭐⭐⭐</span><br />
-                <label for="confluence">Confluence</label> <span>⭐⭐⭐⭐⭐</span><br />
-                <label for="azure">Azure</label> <span>⭐⭐⭐</span><br />
-                <label for="basecamp">Basecamp</label> <span>⭐⭐⭐⭐⭐</span><br />
-                <label for="monday-com">Monday.com</label> <span>⭐⭐⭐⭐</span><br />
-                <label for="clickup">Clickup</label> <span>⭐⭐⭐</span><br />
-                <label for="asana">Asana</label> <span>⭐⭐⭐</span><br />
-            </fieldset> <br />
+          <li>Streamlined client handoff processes from Sales to Client Fulfillment, eliminating blockers and minimizing confusion during transitions.</li>
+          <li>Implemented automated systems and integrated AI tools (GHL, Claude, ChatGPT, Fathom) to improve workflow efficiency and team productivity.</li>
+          <li>Oversaw website development, ensuring timely bug resolution and feature implementation while providing hands-on support in testing and development when needed.</li>
+          <li>Documented and standardized processes in alignment with Chief AI Officers, Sales, and internal teams to ensure clarity and operational consistency.</li>
+          <li>Managed user access and permissions across platforms, ensuring team members had appropriate tools and resources.</li>
+          <li>Facilitated internal communications, including Lunch &amp; Learn sessions and weekly updates with Chief AI Officers on B2B client progress.</li>
         </ul>
-
+      </div>
     </div>
-    <hr />
 
-    <!-- Education -->
-    <div id="education-section-container">
-        <h1>Education</h1>
-        <h3><b>UNIVERSITY OF SANTO TOMAS | PHILIPPINES</b></h3>
-        <p style="margin-top: -15px;"><i><u>Bachelor of Science in Chemical Engineering (August 2014 - June
-                    2020)</u></i></p>
+    <div class="job">
+      <div class="job-meta">Oct 2024 – Sep 2025</div>
+      <div>
+        <div class="job-title">Technical Project Manager</div>
+        <div class="job-company">MUVR · Los Angeles, California, U.S.A.</div>
         <ul>
-            <li>
-                Conducted an Extensive Review of Literature entitled “Synthesis and Characterization of
-                Chitosan-Biphasic Calcium Phosphate Dual Blend Scaffold Coated with Magnesium Ion” and presented in the
-                11th Year Product Innovation.
-            </li>
+          <li>Led end-to-end feature planning and execution, ensuring on-time releases by creating detailed timelines, Jira tickets, and managing team workflows.</li>
+          <li>Collaborated with engineers, QA, and stakeholders to facilitate the full development lifecycle, from ideation through testing and deployment.</li>
+          <li>Provided technical guidance and conducted code reviews to maintain code quality and encourage best practices.</li>
+          <li>Resolved cross-functional challenges, removed blockers, and introduced productivity tools to enhance delivery speed.</li>
+          <li>Actively contributed to QA testing and agile ceremonies, fostering continuous improvement.</li>
         </ul>
+      </div>
     </div>
-    <hr />
 
-    <!-- Certifications -->
-    <div id="certifications-section-container">
-        <h1>Certifications <span>
-                <button><a href="./certifications.html">View All Certifications</a></button>
-            </span></h1>
+    <div class="job">
+      <div class="job-meta">Jun 2023 – Jun 2025</div>
+      <div>
+        <div class="job-title">Freelance Project Manager</div>
+        <div class="job-company">Crowdcrux Marketing Agency · U.S.A.</div>
+        <ul>
+          <li>Served as primary liaison between clients and internal teams, ensuring clear communication and alignment on goals.</li>
+          <li>Led cross-functional teams for landing page and crowdfunding campaigns, driving timely, high-quality deliverables.</li>
+          <li>Delegated tasks effectively across designers, developers, and content creators, maintaining balanced workloads.</li>
+          <li>Developed and managed project timelines based on client launch targets.</li>
+          <li>Monitored KPIs to evaluate campaign success, optimize strategy, and report outcomes to stakeholders.</li>
+        </ul>
+      </div>
     </div>
-    <hr />
 
-</body>
-<footer>
-    <p>Patricia Sullera</p>
+    <div class="job">
+      <div class="job-meta">Dec 2023 – Dec 2024</div>
+      <div>
+        <div class="job-title">Technology R&amp;D Analyst</div>
+        <div class="job-company">Accenture Inc. · Mandaluyong, Philippines</div>
+        <ul>
+          <li>Successfully integrated major features into the application by leveraging emerging technologies.</li>
+          <li>Served as Scrum Master facilitating discussions, enhancing team collaboration and productivity.</li>
+          <li>Collaborated with cross-functional teams to develop and prototype new technologies and solutions.</li>
+          <li>Developed and maintained comprehensive documentation for research and development activities.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="job">
+      <div class="job-meta">Oct 2022 – Dec 2023</div>
+      <div>
+        <div class="job-title">Technology R&amp;D Associate</div>
+        <div class="job-company">Accenture Inc. · Mandaluyong, Philippines</div>
+        <ul>
+          <li>Collaborated with stakeholders, building and fixing errors/issues in an Agile environment.</li>
+          <li>Full-stack web development using HTML, CSS, JavaScript, React.js, Node.js, Angular, MySQL, MongoDB, AWS, and Git.</li>
+          <li>Responsible for domain migration, asset revamping, and maintenance.</li>
+          <li>Self-paced learning of emerging technologies; familiarity with blockchain, Figma, Azure, MIRO, JIRA, Unity, and Adobe Creative Cloud.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="job">
+      <div class="job-meta">Mar 2021 – Sep 2021</div>
+      <div>
+        <div class="job-title">Document Controller</div>
+        <div class="job-company">MBP Star Corporation · Lawang Bato, Valenzuela, Philippines</div>
+        <ul>
+          <li>Proficient in MS Excel for managing and preparing ISO-related documents efficiently and accurately.</li>
+          <li>Reviewed details and maintained correctness of records and files across departments.</li>
+          <li>Ensured integrity and confidentiality of documents.</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="skills">
+  <div class="container">
+    <div class="section-label">Toolkit</div>
+    <h2>Skills</h2>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <h3>AI &amp; Automation</h3>
+        <div class="tags">
+          <span class="tag">Claude</span><span class="tag">Gemini</span><span class="tag">ChatGPT</span>
+          <span class="tag">Perplexity</span><span class="tag">n8n</span><span class="tag">Zapier</span><span class="tag">Make</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>Project Management</h3>
+        <div class="tags">
+          <span class="tag">Jira</span><span class="tag">Azure</span><span class="tag">Basecamp</span>
+          <span class="tag">ClickUp</span><span class="tag">Notion</span><span class="tag">Asana</span>
+          <span class="tag">Miro</span><span class="tag">Confluence</span><span class="tag">GoHighLevel</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>Design &amp; Media</h3>
+        <div class="tags">
+          <span class="tag">Photoshop</span><span class="tag">Blender</span><span class="tag">Pixlr</span>
+          <span class="tag">Canva</span><span class="tag">Powtoon</span><span class="tag">Figma</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>Technical</h3>
+        <div class="tags">
+          <span class="tag">Mind AR</span><span class="tag">MySQL</span><span class="tag">Unity</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>Productivity</h3>
+        <div class="tags">
+          <span class="tag">Microsoft Office</span><span class="tag">Excel</span>
+          <span class="tag">Outlook</span><span class="tag">Google Suite</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>Communication</h3>
+        <div class="tags">
+          <span class="tag">Verbal &amp; Written English</span><span class="tag">Stakeholder Management</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="certification">
+  <div class="container">
+    <div class="section-label">Credentials</div>
+    <h2>Certification</h2>
+    <div class="cert-cta">
+      <p>10+ certifications earned across project management, cloud, security, and technical skills, including AWS Certified Cloud Practitioner.</p>
+      <a class="btn" href="certifications.html">View all certifications &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<section id="education">
+  <div class="container">
+    <div class="section-label">Background</div>
+    <h2>Education</h2>
+    <div class="edu">
+      <h3>University of Santo Tomas</h3>
+      <div class="meta">B.S. in Chemical Engineering · Aug 2014 – Jun 2020 · Sampaloc, Manila, Philippines</div>
+      <p>Conducted an extensive review of literature entitled "Synthesis and Characterization of Chitosan-Biphasic Calcium Phosphate Dual Blend Scaffold Coated with Magnesium Ion," presented at the 11th Year Product Innovation.</p>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="container">
+    <h2>Let's work together</h2>
+    <div class="row">
+      <span class="pill"><a href="mailto:sullerapatricia@gmail.com">✉️ sullerapatricia@gmail.com</a></span>
+      <span class="pill"><a href="tel:+639354146734">📞 +63 935 414 6734</a></span>
+    </div>
+    <div class="small">Meycauayan, Bulacan, Philippines</div>
+  </div>
 </footer>
 
+<div id="top-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
+
+<script>
+  // Active nav link highlighting
+  const sections = document.querySelectorAll('section, header.hero');
+  const navLinks = document.querySelectorAll('#nav-links a');
+  function onScroll(){
+    let current = 'about';
+    sections.forEach(sec => {
+      const top = sec.offsetTop - 90;
+      if(window.scrollY >= top) current = sec.id;
+    });
+    navLinks.forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+    });
+    document.getElementById('top-btn').classList.toggle('show', window.scrollY > 500);
+  }
+  window.addEventListener('scroll', onScroll);
+  onScroll();
+</script>
+
+</body>
 </html>
