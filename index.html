@@ -351,7 +351,7 @@
           </div>
           <label>Message<textarea required name="message" rows="4" placeholder="What are you building, and where is it stuck?"></textarea></label>
           <button type="submit" class="btn btn-light">Send message</button>
-          <div class="form-error" id="form-error" hidden>Something went wrong. Please email sullerapatricia@gmail.com directly.</div>
+          <div class="form-error" id="form-error" hidden>Couldn't send from here, so your email app should open with your message ready to send. If it doesn't, email sullerapatricia@gmail.com directly.</div>
         </form>
         <div class="sent" id="form-sent" hidden>
           <div class="t">Thanks, message received.</div>
@@ -459,11 +459,11 @@
     const f = Object.fromEntries(new FormData(form));
     const errorEl = document.getElementById('form-error');
     errorEl.hidden = true;
-    if (!FORM_ENDPOINT) {
+    const openEmailApp = () => {
       const body = `Name: ${f.name}\nEmail: ${f.email}\nLooking for: ${help}\n\n${f.message}`;
       window.location.href = `mailto:${EMAIL}?subject=${encodeURIComponent('Portfolio inquiry from ' + f.name)}&body=${encodeURIComponent(body)}`;
-      return;
-    }
+    };
+    if (!FORM_ENDPOINT) return openEmailApp();
     const btn = form.querySelector('button[type=submit]');
     btn.textContent = 'Sending…';
     btn.disabled = true;
@@ -475,7 +475,10 @@
       form.hidden = true;
       document.getElementById('form-sent').hidden = false;
     } catch (err) {
+      // Don't lose the message: show the note and hand it to the visitor's email app instead
+      console.error('Contact form failed:', err.message);
       errorEl.hidden = false;
+      openEmailApp();
     } finally {
       btn.textContent = 'Send message';
       btn.disabled = false;
