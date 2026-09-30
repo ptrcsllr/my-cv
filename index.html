@@ -21,6 +21,7 @@
   }
   *{box-sizing:border-box;margin:0;padding:0;}
   html{scroll-behavior:smooth;}
+  [id]{scroll-margin-top:70px;}
   body{
     font-family:'Inter',sans-serif;
     background:var(--bg);
@@ -204,6 +205,7 @@
       <a href="#experience">Experience</a>
       <a href="#skills">Skills</a>
       <a href="#education">Education</a>
+      <a href="portfolio.html">Portfolio</a>
     </div>
     <a class="cta" href="#contact">Contact</a>
   </div>
@@ -427,6 +429,15 @@
     document.getElementById('top-btn').classList.toggle('show', window.scrollY > 500);
   }
   window.addEventListener('scroll', onScroll);
+
+  // In-page nav: scroll with JS so links work even where hash navigation is blocked
+  document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', e => {
+    const target = document.getElementById(a.getAttribute('href').slice(1));
+    if (!target) return;
+    e.preventDefault();
+    target.scrollIntoView({ behavior: 'smooth' });
+    try { history.replaceState(null, '', a.getAttribute('href')); } catch (err) {}
+  }));
   onScroll();
 </script>
 

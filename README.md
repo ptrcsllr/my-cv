@@ -1,2 +1,2 @@
-# my-cv
+# portfolio
 This repository contains my CV
