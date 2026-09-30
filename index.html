@@ -350,6 +350,7 @@
             </div>
           </div>
           <label>Message<textarea required name="message" rows="4" placeholder="What are you building, and where is it stuck?"></textarea></label>
+          <input name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
           <button type="submit" class="btn btn-light">Send message</button>
           <div class="form-error" id="form-error" hidden>Couldn't send from here, so your email app should open with your message ready to send. If it doesn't, email sullerapatricia@gmail.com directly.</div>
         </form>
@@ -386,9 +387,9 @@
 <script>
   // --- Settings ---
   const BOOKING_URL = 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ0ZcR_kdpJX95A_ZTqagyEbMPEcCz5nKwcjqd-P0jMnw3quiLonVUz_d_FFA8FkrUd3oFEB6AkT?gv=true';
-  // FormSubmit (formsubmit.co) forwards messages to EMAIL. Leave empty to open the visitor's email app instead.
-  // After activating, you can swap the email in this URL for the random string FormSubmit gives you to hide your address.
-  const FORM_ENDPOINT = 'https://formsubmit.co/ajax/sullerapatricia@gmail.com';
+  // Google Apps Script web app URL (ends in /exec) that emails messages to EMAIL; see contact-form/Code.gs.
+  // Leave empty to open the visitor's email app instead.
+  const FORM_ENDPOINT = '';
   const EMAIL = 'sullerapatricia@gmail.com';
 
   // --- Case studies (add a `href` to a case to link it to its own page) ---
@@ -468,9 +469,9 @@
     btn.textContent = 'Sending…';
     btn.disabled = true;
     try {
-      const r = await fetch(FORM_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify({ name: f.name, email: f.email, lookingFor: help, message: f.message, _subject: 'Portfolio inquiry from ' + f.name, _template: 'table' }) });
+      const r = await fetch(FORM_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ name: f.name, email: f.email, lookingFor: help, message: f.message, website: f.website }) });
       const data = await r.json().catch(() => ({}));
-      // FormSubmit replies with success "true"/"false" (as text), even when the HTTP status is 200
+      // text/plain avoids a CORS preflight, which Apps Script can't answer; the script replies with { success }
       if (!r.ok || String(data.success) !== 'true') throw new Error(data.message || r.status);
       form.hidden = true;
       document.getElementById('form-sent').hidden = false;
