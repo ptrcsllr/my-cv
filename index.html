@@ -177,7 +177,9 @@
 
   @media (max-width:560px){
     .wrap{padding-left:16px;padding-right:16px}
-    nav .links{display:none}
+    nav .links a:not(.cv-link){display:none}
+    nav .wrap{flex-wrap:nowrap}
+    nav .links{margin-left:auto}
     header.hero{padding-top:64px}
     .modal{padding:0}
     .dialog{max-height:100vh;height:100%;border-radius:0}
@@ -196,6 +198,7 @@
       <a href="#how">How I work</a>
       <a href="#engage">Hire me</a>
       <a href="#experience">Experience</a>
+      <a href="cv.html" class="cv-link">CV</a>
       <a href="https://www.linkedin.com/in/patricia-sullera-86743314a/" target="_blank" rel="noopener">LinkedIn ↗</a>
     </div>
     <a href="#book" class="book" data-book>Book a call</a>
@@ -209,6 +212,7 @@
   <div class="actions">
     <a href="#book" class="btn btn-dark" data-book>Book a 15-min call</a>
     <a href="#work" class="btn btn-outline">See my work</a>
+    <a href="cv.html" class="btn btn-outline">View CV</a>
   </div>
 </header>
 
