@@ -27,6 +27,7 @@
   [id]{scroll-margin-top:64px}
   body{margin:0;background:var(--bg);color:var(--ink);font-family:'Geist',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
   *{box-sizing:border-box}
+  [hidden]{display:none !important}
   a{color:var(--ink);text-decoration:none}
   a:hover{color:var(--accent)}
   ::selection{background:oklch(0.88 0.06 42)}
@@ -165,7 +166,6 @@
 
   /* BOOKING MODAL */
   .modal{position:fixed;inset:0;z-index:100;background:rgba(28,27,24,0.72);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:24px}
-  .modal[hidden]{display:none}
   .dialog{width:100%;max-width:880px;max-height:calc(100vh - 48px);background:var(--bg);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 24px 80px rgba(0,0,0,0.35)}
   .dialog-head{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 20px;border-bottom:1px solid var(--line)}
   .dialog-head .t{font-family:'Newsreader',serif;font-size:22px;letter-spacing:-0.2px}
@@ -357,6 +357,7 @@
         <div class="sent" id="form-sent" hidden>
           <div class="t">Thanks, message received.</div>
           <div class="s">I'll get back to you within 1 business day.</div>
+          <button type="button" class="btn btn-light" id="send-another" style="align-self:flex-start;margin-top:12px">Send another message</button>
         </div>
       </div>
     </div>
@@ -475,6 +476,7 @@
       if (!r.ok || String(data.success) !== 'true') throw new Error(data.message || r.status);
       form.hidden = true;
       document.getElementById('form-sent').hidden = false;
+      form.reset();
     } catch (err) {
       // Don't lose the message: show the note and hand it to the visitor's email app instead
       console.error('Contact form failed:', err.message);
@@ -484,6 +486,12 @@
       btn.textContent = 'Send message';
       btn.disabled = false;
     }
+  });
+  document.getElementById('send-another').addEventListener('click', () => {
+    chips[chips.length - 1].click(); // back to "Not sure yet"
+    document.getElementById('form-sent').hidden = true;
+    form.hidden = false;
+    form.elements.name.focus();
   });
 </script>
 </body>
